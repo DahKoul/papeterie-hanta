@@ -37,3 +37,12 @@ LEFT JOIN (SELECT id_vente, SUM(montant) AS paye FROM paiement GROUP BY id_vente
        ON p.id_vente = v.id_vente
 WHERE t.di > COALESCE(p.paye,0)
 ORDER BY v.id_vente;
+
+-- verification 7 : etape 3 verification modifié
+
+-- vérification 8
+SELECT n.code, COALESCE(SUM(lf.quantite * a.prix),0) AS cout_liste
+FROM niveau n
+LEFT JOIN liste_fourniture lf ON lf.id_niveau = n.id_niveau
+LEFT JOIN article a ON a.id_article = lf.id_article
+GROUP BY n.id_niveau, n.code ORDER BY n.id_niveau;
