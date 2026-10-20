@@ -1,5 +1,7 @@
-- ARTICLE(**id_article**, libelle, prix, #id_categorie) (modifié)
-- CATEGORIE(**id_categorie**, nom) (nouveau)
+- ARTICLE(**id_article**, libelle, prix, #id_categorie)
+- CATEGORIE(**id_categorie**, nom)
+- VENTE(**id_vente**, date_vente) (nouveau)
+- LIGNE_VENTE(**#id_vente**, **#id_article**, quantite) (nouveau)
 ## Notes
  
-- `ARTICLE.id_categorie` est ajoutée nullable, remplie par UPDATE, puis passée en NOT NULL.
+- La quantité est portée par l'association `LIGNE_VENTE` (clé primaire composée).
