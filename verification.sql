@@ -12,3 +12,8 @@ FROM vente v
 JOIN ligne_vente lv ON lv.id_vente = v.id_vente
 JOIN article a ON a.id_article = lv.id_article
 GROUP BY v.id_vente ORDER BY v.id_vente;
+
+-- vérification 4
+SELECT v.id_vente, v.date_vente, COALESCE(c.nom, 'client de passage') AS client
+FROM vente v LEFT JOIN client c ON c.id_client = v.id_client
+ORDER BY v.id_vente;
