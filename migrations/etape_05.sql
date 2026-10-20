@@ -4,6 +4,7 @@ INSERT INTO vendeur (nom) VALUES ('Mamy Andria'),('Voahangy Rabe');
 INSERT INTO caisse  (nom) VALUES ('Entrée'),('Rayon manuels');
 
 ALTER TABLE vente ADD COLUMN id_vendeur INTEGER REFERENCES vendeur(id_vendeur);
+
 ALTER TABLE vente ADD COLUMN id_caisse  INTEGER REFERENCES caisse(id_caisse);
 
 UPDATE vente SET id_vendeur = 1, id_caisse = 1 WHERE id_vente = 1;

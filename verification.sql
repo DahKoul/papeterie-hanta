@@ -26,3 +26,17 @@ LEFT JOIN vente v ON v.id_vendeur = ve.id_vendeur
 LEFT JOIN ligne_vente lv ON lv.id_vente = v.id_vente
 LEFT JOIN article a ON a.id_article = lv.id_article
 GROUP BY ve.id_vendeur, ve.nom;
+
+-- vérification 6 : ventes non soldées
+SELECT v.id_vente,
+       t.du,
+       COALESCE(p.paye,0) AS paye,
+       t.du - COALESCE(p.paye,0) AS reste
+FROM vente v
+JOIN (SELECT lv.id_vente, SUM(lv.quantite*a.prix) AS du
+      FROM ligne_vente lv JOIN article a ON a.id_article = lv.id_article
+      GROUP BY lv.id_vente) t ON t.id_vente = v.id_vente
+LEFT JOIN (SELECT id_vente, SUM(montant) AS paye FROM paiement GROUP BY id_vente) p
+       ON p.id_vente = v.id_vente
+WHERE t.di > COALESCE(p.paye,0)
+ORDER BY v.id_vente;
